@@ -1,1 +1,67 @@
+<style type="text/css">
+    body {
+        background-color: white;
+        color: #B388FF;
+        font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+        font-size: 2em;
+        font-weight: 800;
+    }
 
+    #global {
+        position: absolute;
+        margin: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 40%;
+        height: 50%;
+    }
+</style>
+
+<div id="global">
+    <p style="text-align: center">
+        <img src="http://assets.yfiton.com/images/logo.png" height="128" width="128">
+    </p>
+
+    <p style="color: #4527A0">Please copy and paste following parameters:</p>
+    <div id="empty">Invalid callback invokation</div>
+    <div id="parameters" style="visibility: hidden"></div>
+</div>
+
+<script language="javascript">
+    function replaceAll(str, find, replace) {
+        return str.replace(new RegExp(find, 'g'), replace);
+    }
+
+    var url = window.location.href;
+
+    var containsQuestionMark = url.indexOf("?") > -1;
+    var containsDash = url.indexOf("#") > -1;
+
+    if (containsDash) {
+        if (containsQuestionMark) {
+            url = replaceAll(url, "#", "&");
+        } else {
+            url = replaceAll(url, "#", "?")
+        }
+    }
+
+    if (containsDash || containsQuestionMark) {
+        var queryString = url.split("?")[1];
+        var parameters = queryString.split("&");
+
+        if (parameters.length > 0) {
+            var html = "";
+            for (i = 0; i < parameters.length; i++) {
+                var parameter = parameters[i].split("=");
+                html += "<p>" + parameter[0] + ": " + parameter[1] + "</p>";
+            }
+            html += "";
+
+            document.getElementById("empty").style.display = "none";
+            document.getElementById("parameters").style.visibility = "visible";
+            document.getElementById("parameters").innerHTML = html;
+        }
+    }
+</script>
