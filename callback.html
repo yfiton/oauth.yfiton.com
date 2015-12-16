@@ -1,10 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+</head>
 <style type="text/css">
     body {
-        background-color: white;
-        color: #B388FF;
-        font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
-        font-size: 2em;
-        font-weight: 800;
+        font-size: 1.6em;
     }
 
     #global {
@@ -14,19 +15,25 @@
         right: 0;
         bottom: 0;
         left: 0;
-        width: 40%;
+        width: 35%;
         height: 50%;
+    }
+
+    .center {
+        text-align: center
     }
 </style>
 
 <div id="global">
-    <p style="text-align: center">
+    <p style="text-align: center; margin-left: 28px">
         <img src="http://assets.yfiton.com/images/logo.png" height="128" width="128">
     </p>
 
-    <p style="color: #4527A0">Please copy and paste following parameters:</p>
-    <div id="empty">Invalid callback invokation</div>
-    <div id="parameters" style="visibility: hidden"></div>
+    <h2 style="color: #4527A0; text-align: center" id="empty">Invalid callback invokation</h2>
+    <div id="parameters" style="visibility: hidden">
+      <h2 class="center" style="color: #4527A0; text-align: center; margin-bottom: 24px">You need to copy and paste <br> the following parameter values:</h2>
+      <div></div>
+    </div>
 </div>
 
 <script language="javascript">
@@ -52,16 +59,18 @@
         var parameters = queryString.split("&");
 
         if (parameters.length > 0) {
-            var html = "";
+            var html = "<table class=\"table table-hover table-striped\">";
+            html += "<thead><tr><th class=\"center\">Name</th><th class=\"center\">Value</th><tr></thead><tbody>";
+
             for (i = 0; i < parameters.length; i++) {
                 var parameter = parameters[i].split("=");
-                html += "<p>" + parameter[0] + ": " + parameter[1] + "</p>";
+                html += "<tr><td>" + parameter[0] + "</td><td>" + parameter[1] + "</td></tr>";
             }
-            html += "";
+            html += "</tbody></table>";
 
             document.getElementById("empty").style.display = "none";
             document.getElementById("parameters").style.visibility = "visible";
-            document.getElementById("parameters").innerHTML = html;
+            document.getElementById("parameters").innerHTML += html;
         }
     }
 </script>
